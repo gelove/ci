@@ -1,4 +1,5 @@
 # ci
+[![Build Status](https://drone.finthe.com/api/badges/gelove/demo/status.svg)](https://drone.finthe.com/gelove/demo)
 ### drone gogs 实现持续集成
 ### Application
 #### Most of settings are obvious and easy to understand, but there are some settings can be confusing by running Gogs inside Docker:
