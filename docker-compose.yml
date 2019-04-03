@@ -2,9 +2,8 @@ version: "3"
 
 services:
   mysql:
-    container_name: mysql
-    # image: mysql
     image: mysql:${MYSQL_VERSION}
+    container_name: mysql
     restart: always
     ports:
       - ${MYSQL_PORT}:3306
@@ -19,8 +18,8 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
   
   gogs:
-    container_name: gogs
     image: gogs/gogs
+    container_name: gogs
     restart: always
     depends_on:
       - mysql
@@ -33,8 +32,8 @@ services:
       - TZ=${WORKSPACE_TIMEZONE}
 
   drone-server:
-    container_name: drone-server
     image: drone/drone
+    container_name: drone-server
     restart: always
     ports:
       - ${DRONE_PORT}:80
@@ -45,26 +44,21 @@ services:
       - gogs
     environment:
       - TZ=${WORKSPACE_TIMEZONE}
-      - DRONE_DEBUG=${DRONE_DEBUG}
-      # 开启注册，此配置允许任何人自注册和登录系统
-      - DRONE_OPEN=${DRONE_OPEN}
       - DRONE_SERVER_HOST=drone-server
       - DRONE_SERVER_PROTO=http
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
+      # 私有项目无需验证
       - DRONE_GIT_ALWAYS_AUTH=false
-      - DRONE_PROVIDER=gogs
-      # 开启Gogs驱动
-      - DRONE_GOGS=true
-      # 忽略验证
+      # Gogs忽略SSL验证
       - DRONE_GOGS_SKIP_VERIFY=false
       # Gogs服务器地址
       - DRONE_GOGS_SERVER=http://gogs:3000
-      # 数据库驱动
+      # 数据库驱动 默认 sqlite3
       # - DRONE_DATABASE_DRIVER=sqlite3
 
   drone-agent:
-    container_name: drone-agent
     image: drone/agent
+    container_name: drone-agent
     restart: always
     depends_on:
       - drone-server
@@ -77,6 +71,6 @@ services:
 
   docker-bind:
     # docker-in-docker dind
-    container_name: dind
     image: docker:dind
+    container_name: dind
     privileged: true
