@@ -46,6 +46,7 @@ services:
     environment:
       - TZ=${WORKSPACE_TIMEZONE}
       - DRONE_LOGS_DEBUG=true
+      - DRONE_LOGS_PRETTY=true
       - DRONE_SERVER_HOST=drone-server
       - DRONE_SERVER_PROTO=http
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
@@ -69,6 +70,7 @@ services:
     environment:
       - TZ=${WORKSPACE_TIMEZONE}
       - DRONE_LOGS_DEBUG=true
+      - DRONE_LOGS_PRETTY=true
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
       - DRONE_RPC_SERVER=http://drone-server
       - DOCKER_HOST=tcp://docker-bind:2375
