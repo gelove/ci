@@ -80,3 +80,4 @@ services:
     image: docker:dind
     container_name: dind
     privileged: true
+    command: --storage-driver=overlay
